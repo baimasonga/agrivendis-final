@@ -12,23 +12,28 @@ export type NavItem =
   | 'AI Ops Assistant'
   | 'Settings';
 
+export type LoadStatus = 'In Transit' | 'Assigned' | 'Loading' | 'Delivered' | 'Unassigned';
+export type DriverStatus = 'Available' | 'On Trip' | 'Off Duty';
+export type FleetStatus = 'Available' | 'In Use' | 'Maintenance' | 'Critical';
+
 export interface LoadRecord {
   id: string;
   customer: string;
   pickup: string;
   dropoff: string;
   eta: string;
-  status: 'In Transit' | 'Assigned' | 'Loading' | 'Delivered' | 'Unassigned';
+  status: LoadStatus;
   driver: string;
   truck: string;
-  rate: string;
-  margin: string;
+  rate: number;
+  margin: number;
+  priority: 'Low' | 'Medium' | 'High';
 }
 
 export interface FleetVehicle {
   plate: string;
   model: string;
-  status: 'Available' | 'In Use' | 'Maintenance' | 'Critical';
+  status: FleetStatus;
   driver: string;
   location: string;
   gps: string;
@@ -36,13 +41,14 @@ export interface FleetVehicle {
 
 export interface DriverRecord {
   name: string;
-  status: 'Available' | 'On Trip' | 'Off Duty';
+  status: DriverStatus;
   hosRisk: 'Low' | 'Medium' | 'High';
   rating: number;
   currentLocation: string;
 }
 
 export interface Warehouse {
+  id: string;
   name: string;
   city: string;
   utilization: number;
@@ -50,4 +56,38 @@ export interface Warehouse {
   outbound: number;
   onHand: number;
   status: 'Active' | 'Critical' | 'Maintenance';
+}
+
+export interface RouteRecord {
+  id: string;
+  loadId: string;
+  driver: string;
+  origin: string;
+  destination: string;
+  progress: number;
+  eta: string;
+}
+
+export interface PodRecord {
+  id: string;
+  loadId: string;
+  customer: string;
+  deliveredAt: string;
+  driver: string;
+  status: 'Pending Upload' | 'Submitted' | 'Approved' | 'Rejected';
+  fileName?: string;
+}
+
+export interface InvoiceRecord {
+  id: string;
+  loadId: string;
+  customer: string;
+  amount: number;
+  dueDate: string;
+  status: 'Draft' | 'Sent' | 'Paid' | 'Overdue';
+}
+
+export interface AiMessage {
+  role: 'user' | 'assistant';
+  text: string;
 }

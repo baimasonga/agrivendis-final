@@ -1,34 +1,40 @@
 # FleetFlow Dashboard (Supabase-ready)
 
-A React + TypeScript implementation of the logistics dashboard shown in the supplied reference mockups.
+Feature-complete multi-page logistics dashboard with interactive behavior across all sidebar modules.
 
-## Features
-
-- Sidebar navigation matching FleetFlow structure
-- Dashboard cards + live operations panel
-- Orders/Loads table
-- Fleet table
-- Drivers table
-- Routes map placeholder panel
-- Warehouses cards
-- Supabase integration with local fallback seed data
-
-## Setup
+## Run locally
 
 ```bash
+cd app
 npm install
 cp .env.example .env
 npm run dev
 ```
 
-Fill in your Supabase credentials in `.env`:
+## Supabase setup
 
-- `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_ANON_KEY`
+1. Create a Supabase project.
+2. Set env values in `.env`:
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+3. Run SQL scripts in order:
+   1. `supabase/schema.sql`
+   2. `supabase/seed.sql`
 
-## Supabase schema
+## Implemented functionality by page
 
-Run `supabase/schema.sql` in your project SQL editor.
+- **Dashboard:** KPI cards and live dispatch snapshot.
+- **Orders / Loads:** Status filter + create load.
+- **Dispatch Board:** Kanban columns + status update per load.
+- **Fleet:** Status filter + maintenance toggle.
+- **Drivers:** Status filter + assign/release toggle.
+- **Routes & Tracking:** Route progress increment actions.
+- **Warehouses / Hubs:** Utilization adjustment controls.
+- **Proof of Delivery:** File upload simulation that updates POD status.
+- **Billing & Invoices:** Mark invoice paid actions.
+- **Reports:** Auto-computed delivery, revenue, overdue metrics.
+- **AI Ops Assistant:** Prompt/reply operational recommendations.
+- **Settings:** Editable settings persisted to localStorage.
 
 ## Build
 
